@@ -1,0 +1,50 @@
+﻿#　まずは、図(１)の形を作ってみました。
+
+#　実行したらパッと完成図が出てくるのではなく、ｔの変化によって直線ｙがその跡を残していく動的な図を描くためにanimationをimportしました
+import matplotlib.pyplot as plt
+from matplotlib import animation
+import numpy as np
+
+#　グラフを描く背景に対しての設定です。
+#　xとyの範囲、x軸、y軸、図のタイトルと各ラベルの設定です。
+
+fig = plt.figure()
+ax = plt.axes(xlim=(-35, 35), ylim=(-100, 200))
+ax.axhline(linewidth=2.0, color="black")
+ax.axvline(linewidth=2.0, color="black")
+fig.suptitle('Envelope Theorem', fontsize=20)
+plt.xlabel('x', fontsize=16)
+plt.ylabel('y', fontsize=16)
+ax.grid()
+line, = ax.plot([],[], 'r-',lw=4,)
+#　跡の直線でなく、現在の直線の設定(赤、太さ＝４)です。
+
+
+# initialization function　:　各フレームごとにplotします。
+def f():
+    line.set_data([], [])
+    return line,
+
+
+#　animation function　:　animation関数をanimate(s)と定義します。ここで、変数がsとなっていますが、t＝(s－自然数)なので結局tを変数とみなすことが出来ます。
+#　sを導入した理由は、最後に指定したframesには自然数しか対応が出来ないため、tを変数にするとt<0の範囲は描かれなくなるからです。
+#　今はframeの数を23に設定したので、s=0,1,2,...,22に対して、t＝-11,-10,...,-1,0,1,2,...,11で対応しています。
+def animate(s):
+    x = np.linspace(-50,50,100)
+    t = s-11
+    y = t*x - t**2
+    ax.plot(x,y,'b-')
+    line.set_data(x,y)
+    return line,
+
+
+# call the animator :
+#　上述したようにframeの数は23(描かれる直線の数と同じ)に設定します。数を増やすほど細かく鮮明に包絡線が見えます。
+#　intervalはfps(frames per second)の時間を意味します。当然、大きい値を入力すると、描かれるのが遅くなります。
+#　blit : True - 跡を残さない。　｜｜　False - 跡を残す。
+#　repeat　: 指定された変数(ここでは、s)の範囲までの絵が全部表示され、終わってから、True - 繰り返して表示する。　｜｜　False - 作業を止める。
+
+anim = animation.FuncAnimation(fig, animate, init_func=f,
+           frames=23, interval=100, blit=False, repeat=True)    
+
+plt.show()
