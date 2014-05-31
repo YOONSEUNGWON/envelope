@@ -1,0 +1,32 @@
+﻿#仕組みは全く同じで、直線の数を少し増やし、図(２)のように描いてみました。
+
+import matplotlib.pyplot as plt
+from matplotlib import animation
+import numpy as np
+
+fig = plt.figure()
+ax = plt.axes(xlim=(-35, 35), ylim=(-100, 200))
+ax.axhline(linewidth=2.0, color="black")
+ax.axvline(linewidth=2.0, color="black")
+fig.suptitle('Envelope Theorem.ver2', fontsize=20)
+plt.xlabel('x', fontsize=16)
+plt.ylabel('y', fontsize=16)
+ax.grid()
+line, = ax.plot([],[], 'r-',lw=4,)
+
+def f():
+    line.set_data([], [])
+    return line,
+
+def animate(s):
+    x = np.linspace(-50,50,100)
+    t = s-20
+    y = t*x - t**2
+    ax.plot(x,y,'b-')
+    line.set_data(x,y)
+    return line,
+    
+anim = animation.FuncAnimation(fig, animate, init_func=f,
+           frames=41, interval=80, blit=False, repeat=False)    
+
+plt.show()
