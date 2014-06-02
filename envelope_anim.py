@@ -20,7 +20,7 @@ if VERSION == 2:
     t_Max = 20
     Interval_ms = 80
 
-if VERSION == 3:
+elif VERSION == 3:
     # plt.axes(xlim=(-x_Bound, x_Bound), ylim=(y_Lower, y_Upper))
     x_Bound = 50
     y_Lower, y_Upper = -100, 600
@@ -36,15 +36,15 @@ if VERSION == 3:
 else:
     VERSION = 1
     # plt.axes(xlim=(-x_Bound, x_Bound), ylim=(y_Lower, y_Upper))
-    x_Bound = 35
-    y_Lower, y_Upper = -100, 200
+    x_Bound = 20
+    y_Lower, y_Upper = -50, 100
 
     # x = np.array([x_Min, x_Max])
     x_Max = 50
     x_Min = -x_Max
 
     # t = -t_max, -t_max + 1, ..., t_max
-    t_Max = 22
+    t_Max = 8
     Interval_ms = 100
 
 
