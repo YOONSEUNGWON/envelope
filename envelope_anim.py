@@ -5,7 +5,7 @@ from matplotlib import animation
 import numpy as np
 
 # Define constants
-VERSION = 2
+VERSION = 1
 
 if VERSION == 2:
     # plt.axes(xlim=(-x_Bound, x_Bound), ylim=(y_Lower, y_Upper))
